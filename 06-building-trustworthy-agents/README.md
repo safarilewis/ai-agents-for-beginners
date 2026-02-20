@@ -162,17 +162,19 @@ Another effective way to build trustworthy AI Agent systems is using a Human-in-
 Here is a code snippet using the Microsoft Agent Framework to show how this concept is implemented:
 
 ```python
+import os
 from agent_framework.azure import AzureAIProjectAgentProvider
 from azure.identity import AzureCliCredential
 
-# Create the client with human-in-the-loop approval
-provider = AzureAIProjectAgentProvider(credential=AzureCliCredential()),
-    endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+# Create the provider with human-in-the-loop approval
+provider = AzureAIProjectAgentProvider(
+    credential=AzureCliCredential(),
+    endpoint=os.getenv("AZURE_AI_PROJECT_ENDPOINT"),
     model="gpt-4o-mini",
 )
 
 # Create the agent with a human approval step
-response = client.create_response(
+response = provider.create_response(
     input="Write a 4-line poem about the ocean.",
     instructions="You are a helpful assistant. Ask for user approval before finalizing.",
 )
